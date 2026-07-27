@@ -19,7 +19,7 @@ BrainLeap is an end-to-end clinical decision support system for **leakage-aware 
 ## 💻 How to Transfer & Run on Your Laptop
 
 ### 🚀 Option 1: 1-Click Auto Setup (Recommended)
-1. Copy the entire `fyp uk` folder (excluding `venv`) to your laptop.
+1. Copy the entire `fyp` folder (excluding `venv`) to your laptop.
 2. Double-click **`setup_and_run.bat`**.
    - It will automatically create the `venv`, install all packages from `requirements.txt`, and launch the app!
 3. Open **`http://127.0.0.1:8000`** in your browser.
@@ -29,7 +29,7 @@ BrainLeap is an end-to-end clinical decision support system for **leakage-aware 
 ### 🛠️ Option 2: Manual Setup via Terminal
 If you prefer running commands manually in PowerShell or Command Prompt:
 
-1. Open PowerShell in the project directory (`fyp uk`).
+1. Open PowerShell in the project directory (`fyp`).
 2. Create virtual environment:
    ```powershell
    python -m venv venv
@@ -48,7 +48,7 @@ If you prefer running commands manually in PowerShell or Command Prompt:
 
 ## 📁 Project Directory Structure
 ```text
-fyp uk/
+fyp/
 ├── app/
 │   ├── routes/
 │   │   ├── health.py        # GET /health status check
@@ -72,6 +72,6 @@ fyp uk/
 
 ## 🤝 Model Handshake Protocol (Arslan's Model)
 When Arslan finishes training his ViT-B/16 model:
-1. Place his exported model file **`alzheimer_vit_core.pth`** directly in the project root folder (`fyp uk/`).
+1. Place his exported model file **`alzheimer_vit_core.pth`** directly in the project root folder (`fyp/`).
 2. Restart the server (`python run.py`).
 3. The backend will automatically detect the file and switch from Simulation Mode to Arslan's PyTorch ViT model without any code edits!
