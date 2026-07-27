@@ -1,0 +1,10 @@
+Mild Dementia/
+Moderate Dementia/
+Non Demented/
+Very mild Dementia/
+data/
+venv/
+*.pth
+*.zip
+__pycache__/
+.vscode/
