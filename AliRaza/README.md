@@ -1,77 +1,57 @@
-# 🧠 BrainLeap Clinical Decision Support Suite
-**FastAPI Backend + Grad-CAM Visualizer Engine + Distributed Clinical Web Dashboard**  
-*Component 4 — MSc Master's Project (UWS)*  
-*Student: Ali*
+# BrainLeap Clinical Decision Support System (CDS) 🧠
 
----
+An End-to-End Clinical Decision Support System for Leakage-Aware Dementia Staging using Patient-Isolated Neuroimaging Tensors and Distributed Web UI Frameworks.
 
-## 🌟 Overview
-BrainLeap is an end-to-end clinical decision support system for **leakage-aware Alzheimer's dementia staging** using 2D structural MRI (sMRI) brain scans from the OASIS-1 dataset.
+## 🌟 Key Features
+- **AI-Powered Diagnostics:** Utilizes a Vision Transformer (ViT) model for 4-stage Alzheimer's/Dementia classification (Non-Demented, Very Mild, Mild, Moderate).
+- **Grad-CAM Attention Heatmaps:** Explains model predictions by highlighting affected brain regions, enhancing clinical trust.
+- **Patient Isolation Hub:** Secure, real-time logging and retrieval of patient analysis history backed by MongoDB Atlas.
+- **Medical-Grade UI/UX:** A responsive, glassmorphism-based dashboard with dynamic theme switching (Dark/Light mode) and advanced data visualization (Radar & Bar charts).
+- **Secure Authentication:** `bcrypt` password hashing for secure doctor/clinician login.
 
-### Key Capabilities:
-- **FastAPI Production Engine**: Asynchronous web API with validation gates and structured JSON payload endpoints (`/health`, `/predict`, `/metadata`).
-- **Explainable AI (Grad-CAM Visualizer)**: Real-time visual heatmaps overlaid on sMRI scans highlighting hippocampal shrinkage and ventricular expansion.
-- **Luxury Clinical Web Dashboard**: Modern, responsive Mayo-Clinic inspired interface (`/`) with sMRI upload, quick demo presets, class probability distributions, and interactive opacity sliders.
-- **Zero-Downtime Model Handshake**: Operates in validation simulation mode when model weights are pending, and automatically loads PyTorch ViT-B/16 model weights (`alzheimer_vit_core.pth`) once dropped into the root folder.
+## 🛠️ Technology Stack
+- **Backend:** FastAPI (Python), PyTorch, OpenCV, Motor (Async MongoDB).
+- **Frontend:** Vanilla JavaScript, HTML5, CSS3 (No heavy frameworks, ultra-fast loading).
+- **Database:** MongoDB Atlas (Cloud).
+- **Data Viz:** Chart.js.
 
----
+## 🚀 Setup & Installation
 
-## 💻 How to Transfer & Run on Your Laptop
+### 1. Prerequisites
+Ensure you have **Python 3.10+** installed on your system.
 
-### 🚀 Option 1: 1-Click Auto Setup (Recommended)
-1. Copy the entire `fyp` folder (excluding `venv`) to your laptop.
-2. Double-click **`setup_and_run.bat`**.
-   - It will automatically create the `venv`, install all packages from `requirements.txt`, and launch the app!
-3. Open **`http://127.0.0.1:8000`** in your browser.
-
----
-
-### 🛠️ Option 2: Manual Setup via Terminal
-If you prefer running commands manually in PowerShell or Command Prompt:
-
-1. Open PowerShell in the project directory (`fyp`).
-2. Create virtual environment:
-   ```powershell
-   python -m venv venv
-   ```
-3. Install dependencies:
-   ```powershell
-   .\venv\Scripts\python -m pip install -r requirements.txt
-   ```
-4. Launch the application:
-   ```powershell
-   .\venv\Scripts\python run.py
-   ```
-5. Open browser at **`http://127.0.0.1:8000`**.
-
----
-
-## 📁 Project Directory Structure
-```text
-fyp/
-├── app/
-│   ├── routes/
-│   │   ├── health.py        # GET /health status check
-│   │   ├── predict.py       # POST /predict sMRI upload & Grad-CAM pipeline
-│   │   └── metadata.py      # GET /metadata system specs
-│   ├── services/
-│   │   ├── inference.py     # Model inference engine & simulation fallback
-│   │   └── gradcam.py       # Grad-CAM JET heatmap visualization generator
-│   ├── static/
-│   │   ├── index.html       # Clinical Suite UI template
-│   │   ├── style.css        # Luxury medical light-theme styling
-│   │   └── app.js           # Interactive frontend application logic
-│   └── main.py              # Main FastAPI application factory
-├── run.py                   # Python server launcher
-├── setup_and_run.bat        # 1-Click Windows setup & start script
-├── requirements.txt         # Required Python packages
-└── README.md                # Documentation guide
+### 2. Environment Setup
+Clone the repository and create a virtual environment:
+```bash
+git clone https://github.com/HafizArslan338/brainleap-alzheimers-vit.git
+cd brainleap-alzheimers-vit
+python3 -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
 ```
 
----
+### 3. Install Dependencies
+```bash
+cd backend
+pip install -r requirements.txt
+```
 
-## 🤝 Model Handshake Protocol (Arslan's Model)
-When Arslan finishes training his ViT-B/16 model:
-1. Place his exported model file **`alzheimer_vit_core.pth`** directly in the project root folder (`fyp/`).
-2. Restart the server (`python run.py`).
-3. The backend will automatically detect the file and switch from Simulation Mode to Arslan's PyTorch ViT model without any code edits!
+### 4. Database Configuration
+Create a `.env` file inside the `backend` folder and add your MongoDB connection string and JWT secret:
+```env
+MONGODB_URI="mongodb+srv://<username>:<password>@cluster.mongodb.net/?retryWrites=true&w=majority"
+JWT_SECRET="your_super_secret_jwt_key"
+```
+*(Note: Never upload your `.env` file to GitHub!)*
+
+### 5. Running the Application
+Start the FastAPI server:
+```bash
+# Ensure you are inside the 'backend' folder
+uvicorn main:app --reload
+```
+Once the server is running, the **Frontend and Backend both** will be served simultaneously by FastAPI!
+Open your browser and navigate to:
+👉 **http://127.0.0.1:8000**
+
+---
+*Developed for advanced clinical neuroimaging analysis and research.*
