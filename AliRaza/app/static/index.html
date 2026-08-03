@@ -3,203 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BrainLeap Clinical Decision Support — Mayo Medical Suite</title>
-    <!-- Cache-busting query parameter forces browser to reload fresh CSS -->
-    <link rel="stylesheet" href="/static/style.css?v=4.0">
+    <title>BrainLeap CDS | Dementia Staging</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="app-container">
-        <!-- Header Bar -->
-        <header class="app-header">
-            <div class="brand-section">
-                <!-- High-Quality Neuroimaging Brain SVG Icon Logo -->
-                <div class="logo-badge">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1e3a8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2a5 5 0 0 0-4.9 6 3.5 3.5 0 0 0-1.1 6.8 4 4 0 0 0 3 6.2h6a4 4 0 0 0 3-6.2 3.5 3.5 0 0 0-1.1-6.8A5 5 0 0 0 12 2z"></path>
-                        <path d="M12 2v20"></path>
-                        <path d="M12 6a4 4 0 0 0-4 4"></path>
-                        <path d="M12 6a4 4 0 0 1 4 4"></path>
-                        <path d="M12 14a4 4 0 0 0-4 4"></path>
-                        <path d="M12 14a4 4 0 0 1 4 4"></path>
-                    </svg>
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-brain"></i>
+                <h2>BrainLeap <span>CDS</span></h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="active" id="tabDashboard"><i class="fa-solid fa-chart-pie"></i> Clinical Dashboard</a>
+                <a href="#" id="tabPatients"><i class="fa-solid fa-users-viewfinder"></i> Patient Isolation Hub</a>
+                <a href="#" id="tabSettings"><i class="fa-solid fa-microchip"></i> ViT Settings</a>
+            </nav>
+            <div class="user-profile">
+                <img id="profileAvatar" src="https://ui-avatars.com/api/?name=Dr+Ali&background=0D8ABC&color=fff" alt="User">
+                <div class="user-info">
+                    <h4 id="profileName">Dr. Ali</h4>
+                    <p>Neurologist</p>
                 </div>
+            </div>
+            
+            <a href="auth.html" class="logout-btn">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Secure Logout
+            </a>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
                 <div>
-                    <h1 class="app-title">BrainLeap Clinical Suite</h1>
-                    <p class="app-subtitle">Leakage-Aware Dementia Staging • OASIS-1 Patient Isolated Validation</p>
+                    <h1>Dementia Staging CDS</h1>
+                    <p class="subtitle" style="margin-top:4px; max-width: 800px; line-height: 1.4;">
+                        <strong>Official Project:</strong> An End-to-End Clinical Decision Support System for Leakage-Aware Dementia Staging Using Patient-Isolated Neuroimaging Tensors and Distributed Web UI Frameworks
+                    </p>
                 </div>
-            </div>
-            <div class="status-section">
-                <span class="status-badge status-online">
-                    <span class="status-pulse"></span> Backend Service Online
-                </span>
-                <span class="status-badge status-secure">
-                    🔒 Patient Isolation Gate Enforced
-                </span>
-            </div>
-        </header>
-
-        <!-- Workspace Grid -->
-        <main class="workspace-grid">
-            <!-- Left Panel: Input & Controls -->
-            <section class="panel">
-                <div class="panel-header">
-                    <h2 class="panel-title">
-                        1. Scan Acquisition 
-                        <span class="panel-title-badge">sMRI Input</span>
-                    </h2>
-                    <p class="panel-desc">Upload 2D structural MRI slice image for automated staging analysis</p>
+                <div class="header-actions">
+                    <button class="btn-outline"><i class="fa-solid fa-download"></i> Export Report</button>
+                    <div class="theme-toggle" id="themeToggle"><i class="fa-solid fa-moon"></i></div>
                 </div>
+            </header>
 
-                <!-- Upload Dropzone -->
-                <div class="dropzone" id="dropzone">
-                    <input type="file" id="fileInput" accept="image/jpeg, image/png, image/jpg" hidden>
+            <!-- MAIN DASHBOARD -->
+            <div class="dashboard-grid" id="sectionDashboard">
+                <div class="left-column" style="display: flex; flex-direction: column; gap: 32px;">
+                    <!-- Upload Section -->
+                    <div class="card upload-card glass-panel">
+                    <h3><i class="fa-solid fa-cloud-arrow-up"></i> T1-Weighted MRI Scanner</h3>
+                    <p class="subtitle">Upload patient structural MRI slice (OASIS Format) for ViT analysis.</p>
                     
-                    <div id="dropzoneContent">
-                        <div class="upload-icon-wrapper">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                <polyline points="17 8 12 3 7 8"></polyline>
-                                <line x1="12" y1="3" x2="12" y2="15"></line>
-                            </svg>
-                        </div>
-                        <p class="upload-title">Drop sMRI brain slice image here or click to upload</p>
-                        <p class="upload-hint">Supports JPEG, PNG • Automatic 224×224 Normalization</p>
+                    <div class="upload-area" id="uploadArea">
+                        <i class="fa-regular fa-image upload-icon"></i>
+                        <p>Drag & drop MRI scan here or <span class="highlight">browse files</span></p>
+                        <input type="file" id="fileInput" accept="image/png, image/jpeg, image/jpg" hidden>
                     </div>
 
-                    <div class="preview-container hidden" id="previewContainer">
-                        <img id="imagePreview" alt="sMRI Preview" class="image-preview">
-                        <button class="btn-remove-preview" id="btnRemoveImage" type="button">✕ Remove</button>
+                    <div class="preview-section hidden" id="previewSection">
+                        <div class="file-info-badge">
+                            <i class="fa-solid fa-file-image"></i>
+                            <span id="fileNameDisplay">scan.png</span>
+                        </div>
+                        <div class="image-wrapper">
+                            <img id="imagePreview" src="" alt="MRI Preview">
+                        </div>
+                        <div style="display: flex; gap: 10px; margin-top: 15px;">
+                            <button class="btn-outline" id="resetBtn" style="flex: 1; padding: 12px; background: transparent; border: 1px solid var(--border-color); color: var(--text-color); border-radius: 8px; cursor: pointer; transition: 0.3s; font-family: 'Outfit';">
+                                <i class="fa-solid fa-rotate-left"></i> Change Scan
+                            </button>
+                            <button class="btn-primary" id="analyzeBtn" style="flex: 2;">
+                                <i class="fa-solid fa-microchip"></i> Run ViT Analysis
+                            </button>
+                        </div>
+                    </div>
+                </div> <!-- CLOSING UPLOAD CARD -->
+                    
+                <!-- Radar Chart Section (Moved to Left Side) -->
+                <div class="card glass-panel hidden" id="radarCard">
+                        <h3><i class="fa-solid fa-brain"></i> Regional Atrophy</h3>
+                        <p class="subtitle">Structural degradation metrics across key neurological regions.</p>
+                        <div style="background: rgba(0,0,0,0.1); border-radius: 12px; padding: 16px; border: 1px solid var(--border-color); display: flex; justify-content: center;">
+                            <canvas id="radarChart" width="300" height="300" style="max-height: 300px; max-width: 300px;"></canvas>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Primary Action Button -->
-                <button class="btn-primary" id="btnRunScreening" disabled>
-                    <span id="btnText">Execute Clinical Screening</span>
-                    <span class="spinner hidden" id="btnSpinner"></span>
-                </button>
-
-                <!-- Quick Screening Presets -->
-                <div class="presets-section">
-                    <div class="presets-header">⚡ Quick Demo Presets</div>
-                    <div class="preset-grid">
-                        <button class="btn-preset" data-preset="nondemented">
-                            <span>Healthy Control</span>
-                            <span class="preset-dot" style="background:#059669;"></span>
-                        </button>
-                        <button class="btn-preset" data-preset="verymild">
-                            <span>Very Mild</span>
-                            <span class="preset-dot" style="background:#4f46e5;"></span>
-                        </button>
-                        <button class="btn-preset" data-preset="mild">
-                            <span>Mild Stage</span>
-                            <span class="preset-dot" style="background:#d97706;"></span>
-                        </button>
-                        <button class="btn-preset" data-preset="moderate">
-                            <span>Moderate</span>
-                            <span class="preset-dot" style="background:#dc2626;"></span>
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Right Panel: Diagnostics & Explainable AI -->
-            <section class="panel">
-                <div class="panel-header">
-                    <h2 class="panel-title">
-                        2. Clinical Staging & Diagnostic Report
-                        <span class="panel-title-badge" style="background:#f5f3ff; color:#6d28d9; border-color:#ddd6fe;">Explainable AI</span>
-                    </h2>
-                    <p class="panel-desc">ViT-B/16 staging classification and Grad-CAM spatial heatmaps</p>
-                </div>
-
-                <!-- Empty State -->
-                <div class="empty-state" id="emptyState">
-                    <div class="empty-icon">📊</div>
-                    <h3>Ready for Diagnostic Analysis</h3>
-                    <p>Select a preset or upload an sMRI brain scan to compute multi-stage dementia staging and visual attention heatmaps.</p>
-                </div>
-
-                <!-- Results Output Grid -->
-                <div class="results-container hidden" id="resultsContainer">
-                    <!-- Staging Output Card -->
-                    <div class="staging-card">
-                        <div class="staging-card-accent" id="stagingAccent"></div>
-                        <div class="staging-top">
-                            <span class="staging-label">Predicted Dementia Stage</span>
-                            <span class="confidence-pill" id="confidenceBadge">98.4%</span>
-                        </div>
-                        <h2 class="staging-value" id="stagingTitle">Non-Demented</h2>
-                        <div class="meter-track">
-                            <div class="meter-fill" id="confidenceBar" style="width: 0%;"></div>
-                        </div>
-                        <p class="execution-tag" id="executionModeText">Execution Engine: PyTorch ViT-B/16 Core</p>
+                <!-- Results Section -->
+                <div class="card results-card glass-panel">
+                    <h3><i class="fa-solid fa-stethoscope"></i> Clinical Assessment</h3>
+                    
+                    <div class="empty-state" id="resultsEmpty">
+                        <i class="fa-solid fa-notes-medical"></i>
+                        <p>Upload a scan and run analysis to view patient diagnosis and Grad-CAM visualizations.</p>
                     </div>
 
-                    <!-- Probabilities Breakdown -->
-                    <div class="card-box">
-                        <h4 class="card-title">Class Probability Distribution</h4>
-                        <div class="prob-grid" id="probList">
-                            <!-- Populated dynamically -->
-                        </div>
-                    </div>
-
-                    <!-- Grad-CAM Visualizer Card -->
-                    <div class="card-box">
-                        <div class="gradcam-top">
-                            <div>
-                                <h4 class="card-title" style="margin-bottom:2px;">Grad-CAM Attention Heatmap</h4>
-                                <p class="panel-desc">Visualizes spatial regions driving network classification</p>
+                    <div class="results-content hidden" id="resultsContent">
+                        
+                        <!-- Metadata / Parsed info -->
+                        <div class="metadata-grid">
+                            <div class="meta-item">
+                                <span><i class="fa-solid fa-id-card"></i> Patient ID:</span>
+                                <strong id="patientIdDisplay">OAS1_0001</strong>
                             </div>
-                            <div class="slider-group">
-                                <label for="opacitySlider">Heatmap Opacity:</label>
-                                <input type="range" id="opacitySlider" min="0" max="100" value="65">
-                                <span id="opacityVal" style="font-family:var(--font-mono); font-weight:600;">65%</span>
+                            <div class="meta-item" id="qaStatusBox">
+                                <span><i class="fa-solid fa-shield-halved"></i> Image QA:</span>
+                                <strong id="qaStatusDisplay">Passed</strong>
                             </div>
                         </div>
 
-                        <!-- Viewer Split -->
-                        <div class="viewer-grid">
-                            <div class="mri-card">
-                                <span class="mri-tag">Input sMRI Tensor</span>
-                                <img id="viewerBaseImg" alt="Input Scan" class="mri-img">
+                        <div class="prediction-box">
+                            <span class="label">AI Diagnosis Stage</span>
+                            <h2 id="predictionText">Moderate Dementia</h2>
+                            <div class="confidence-bar-container">
+                                <div class="confidence-bar" id="confidenceBar" style="width: 0%;"></div>
                             </div>
-                            <div class="mri-card">
-                                <span class="mri-tag">Attention Overlay</span>
-                                <div class="mri-overlay-box">
-                                    <img id="viewerOverlayBase" alt="Base Scan" class="mri-img">
-                                    <img id="viewerHeatmapOverlay" alt="GradCAM Overlay" class="mri-img mri-layer mri-overlay-layer">
-                                </div>
+                            <span class="confidence-text" id="confidenceText">Confidence: 0%</span>
+                        </div>
+
+                        <div class="heatmap-section">
+                            <h4><i class="fa-solid fa-layer-group"></i> Attention Heatmap (Grad-CAM)</h4>
+                            <p class="small-text">Areas of the brain strongly influencing the ViT model's prediction.</p>
+                            <div class="image-wrapper heatmap-wrapper">
+                                <img id="heatmapPreview" src="" alt="Grad-CAM Heatmap">
+                                <div class="scan-line"></div>
                             </div>
                         </div>
-                        <div class="roi-box" id="attentionRegionsTag">
-                            <strong>Anatomical Focus:</strong> <span id="regionsText">Loading...</span>
+
+                        <!-- Probability Chart Section -->
+                        <div class="chart-section" style="margin-top: 24px;">
+                            <h4><i class="fa-solid fa-chart-pie"></i> Clinical Probability Distribution</h4>
+                            <p class="small-text">ViT class activation confidence across all stages.</p>
+                            <div style="background: rgba(0,0,0,0.1); border-radius: 12px; padding: 16px; border: 1px solid var(--border-color);">
+                                <canvas id="probabilityChart" width="400" height="200"></canvas>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Action Footer -->
-                    <div class="action-footer">
-                        <button class="btn-secondary" id="btnPrintReport">🖨️ Export Summary Report</button>
-                        <button class="btn-secondary" id="btnViewMetadata">⚙️ Pipeline Metadata</button>
                     </div>
-                </div>
-            </section>
-        </main>
-
-        <!-- Metadata Modal -->
-        <div class="modal-backdrop hidden" id="metadataModal">
-            <div class="modal-dialog">
-                <div class="modal-header">
-                    <h3 class="modal-title">BrainLeap System Architecture & Protocol</h3>
-                    <button class="btn-close" id="btnCloseModal">✕</button>
-                </div>
-                <div class="modal-body" id="modalBody">
-                    <!-- Populated dynamically -->
                 </div>
             </div>
-        </div>
-    </div>
+            
+            <!-- PATIENT ISOLATION HUB -->
+            <div class="card glass-panel hidden" id="sectionPatients">
+                <h3><i class="fa-solid fa-database"></i> Patient Isolation Hub</h3>
+                <p class="subtitle">Real-time database of all patient analyses saved securely to MongoDB Atlas.</p>
+                <div style="overflow-x: auto; margin-top: 20px;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid var(--border-color);">
+                                <th style="padding: 12px; color: var(--text-secondary);">Patient ID</th>
+                                <th style="padding: 12px; color: var(--text-secondary);">Image QA</th>
+                                <th style="padding: 12px; color: var(--text-secondary);">AI Diagnosis</th>
+                                <th style="padding: 12px; color: var(--text-secondary);">Confidence</th>
+                            </tr>
+                        </thead>
+                        <tbody id="patientsTableBody">
+                            <tr><td colspan="4" style="text-align: center; padding: 20px;"><i class="fa-solid fa-spinner fa-spin"></i> Loading...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- VIT SETTINGS -->
+            <div class="card glass-panel hidden" id="sectionSettings">
+                <h3><i class="fa-solid fa-microchip"></i> ViT Model & System Configuration</h3>
+                <p class="subtitle">Fine-tune the Vision Transformer parameters and application preferences.</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 20px;">
+                    
+                    <!-- Left Column: Core Parameters -->
+                    <div style="display: flex; flex-direction: column; gap: 24px;">
+                        <h4 style="border-bottom: 1px solid var(--border-color); padding-bottom: 8px;"><i class="fa-solid fa-sliders"></i> Core Parameters</h4>
+                        <div>
+                            <label style="font-size: 14px; font-weight: bold; color: var(--text-secondary);">Laplacian QA Blur Threshold</label>
+                            <input type="range" min="10" max="100" value="30" style="width: 100%; margin-top: 8px; cursor: pointer;">
+                            <span style="font-size: 12px; color: var(--accent-color);">Current: 30.0 (Strict)</span>
+                        </div>
+                        <div>
+                            <label style="font-size: 14px; font-weight: bold; color: var(--text-secondary);">Confidence Alert Threshold</label>
+                            <input type="range" min="50" max="99" value="85" style="width: 100%; margin-top: 8px; cursor: pointer;">
+                            <span style="font-size: 12px; color: var(--accent-color);">Current: 85%</span>
+                        </div>
+                        <div>
+                            <label style="font-size: 14px; font-weight: bold; color: var(--text-secondary); display: block; margin-bottom: 8px;">Active Model Checkpoint</label>
+                            <select style="width: 100%; padding: 10px; border-radius: 8px; background: transparent; border: 1px solid var(--border-color); color: var(--text-primary); font-family: var(--font-main);">
+                                <option>ViT-B/16 (Production - v2.0)</option>
+                                <option>ViT-L/16 (Experimental - v3.0-beta)</option>
+                                <option>ResNet-50 (Legacy Baseline)</option>
+                            </select>
+                        </div>
+                    </div>
 
-    <!-- Cache-busting query parameter forces browser to reload fresh JS -->
-    <script src="/static/app.js?v=4.0"></script>
+                    <!-- Right Column: System & UI Preferences -->
+                    <div style="display: flex; flex-direction: column; gap: 24px;">
+                        <h4 style="border-bottom: 1px solid var(--border-color); padding-bottom: 8px;"><i class="fa-solid fa-desktop"></i> System & Visuals</h4>
+                        <div>
+                            <label style="font-size: 14px; font-weight: bold; color: var(--text-secondary); display: block; margin-bottom: 8px;">Grad-CAM Colormap</label>
+                            <select id="colormapSelect" style="width: 100%; padding: 10px; border-radius: 8px; background: transparent; border: 1px solid var(--border-color); color: var(--text-primary); font-family: var(--font-main);">
+                                <option value="JET">JET (Clinical Standard)</option>
+                                <option value="VIRIDIS">VIRIDIS (Colorblind Safe)</option>
+                                <option value="HOT">HOT (High Contrast)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="font-size: 14px; font-weight: bold; color: var(--text-secondary); display: block; margin-bottom: 8px;">Hardware Inference Backend</label>
+                            <select style="width: 100%; padding: 10px; border-radius: 8px; background: transparent; border: 1px solid var(--border-color); color: var(--text-primary); font-family: var(--font-main);">
+                                <option>CPU (Intel/AMD) - Balanced</option>
+                                <option>CUDA (NVIDIA GPU) - High Performance</option>
+                                <option>TensorRT - Ultra Low Latency</option>
+                            </select>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px;">
+                            <span style="font-size: 14px; font-weight: bold; color: var(--text-secondary);"><i class="fa-solid fa-cloud-arrow-up"></i> HIPAA Cloud Sync (MongoDB)</span>
+                            <input type="checkbox" checked style="width: 18px; height: 18px; cursor: pointer;">
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 30px; text-align: right; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                    <button id="saveSettingsBtn" class="btn-primary" style="width: auto; display: inline-flex; float: right;"><i class="fa-solid fa-save"></i> Apply Changes</button>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+            
+            <div class="loader-overlay hidden" id="loader">
+                <div class="spinner">
+                    <div class="double-bounce1"></div>
+                    <div class="double-bounce2"></div>
+                </div>
+                <p>Processing Vision Transformer Tensors...</p>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>

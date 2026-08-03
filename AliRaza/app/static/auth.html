@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainLeap CDS | Authentication</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="auth-body">
+    <div class="theme-toggle auth-theme-toggle" id="themeToggle" title="Toggle Light/Dark Mode">
+        <i class="fa-solid fa-moon"></i>
+    </div>
+
+    <div class="auth-container">
+        <div class="auth-card glass-panel">
+            
+            <div class="logo auth-logo">
+                <i class="fa-solid fa-brain"></i>
+                <h2>BrainLeap <span>CDS</span></h2>
+            </div>
+            
+            <p class="auth-subtitle" style="max-width: 400px; margin-left: auto; margin-right: auto; line-height: 1.4;">
+                <strong>An End-to-End Clinical Decision Support System for Leakage-Aware Dementia Staging Using Patient-Isolated Neuroimaging Tensors and Distributed Web UI Frameworks</strong>
+            </p>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" id="tabLogin">Login</button>
+                <button class="auth-tab" id="tabRegister">Sign Up</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form">
+                <div class="input-group">
+                    <label><i class="fa-solid fa-envelope"></i> Clinical Email ID</label>
+                    <input type="email" placeholder="doctor@hospital.org" value="ali@brainleap.cds" required>
+                </div>
+                <div class="input-group">
+                    <label><i class="fa-solid fa-lock"></i> Security Password</label>
+                    <input type="password" placeholder="••••••••" value="password123" required>
+                </div>
+                <div class="auth-options">
+                    <label class="remember-me"><input type="checkbox" checked> Remember Device</label>
+                    <a href="#" class="forgot-pass">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn-primary auth-btn"><i class="fa-solid fa-right-to-bracket"></i> Secure Login</button>
+            </form>
+
+            <!-- Register Form (Hidden by Default) -->
+            <form id="registerForm" class="auth-form hidden">
+                <div class="input-group">
+                    <label><i class="fa-solid fa-user-doctor"></i> Full Name</label>
+                    <input type="text" placeholder="Dr. First Last" required>
+                </div>
+                <div class="input-group">
+                    <label><i class="fa-solid fa-hospital"></i> Medical Institution</label>
+                    <input type="text" placeholder="General Hospital" required>
+                </div>
+                <div class="input-group">
+                    <label><i class="fa-solid fa-envelope"></i> Work Email</label>
+                    <input type="email" placeholder="doctor@hospital.org" required>
+                </div>
+                <div class="input-group">
+                    <label><i class="fa-solid fa-lock"></i> Create Password</label>
+                    <input type="password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-primary auth-btn"><i class="fa-solid fa-user-plus"></i> Request Access</button>
+            </form>
+            
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>
