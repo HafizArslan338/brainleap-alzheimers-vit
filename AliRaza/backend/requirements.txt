@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+torch
+torchvision
+pandas
+pillow
+opencv-python
+python-multipart
+motor
+passlib
+bcrypt==3.2.0
+pydantic
+python-dotenv
