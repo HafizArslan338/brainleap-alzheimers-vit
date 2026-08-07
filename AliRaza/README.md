@@ -7,13 +7,13 @@
 - **Medical-Grade UI/UX:** A responsive, glassmorphism-based dashboard with dynamic theme switching (Dark/Light mode) and advanced data visualization (Radar & Bar charts).
 - **Secure Authentication:** `bcrypt` password hashing for secure doctor/clinician login.
 
-## 🛠️ Technology Stack
+## Technology Stack
 - **Backend:** FastAPI (Python), PyTorch, OpenCV, Motor (Async MongoDB).
 - **Frontend:** Vanilla JavaScript, HTML5, CSS3 (No heavy frameworks, ultra-fast loading).
 - **Database:** MongoDB Atlas (Cloud).
 - **Data Viz:** Chart.js.
 
-## 🚀 Setup & Installation
+## Setup & Installation
 
 ### 1. Prerequisites
 Ensure you have **Python 3.10+** installed on your system.
