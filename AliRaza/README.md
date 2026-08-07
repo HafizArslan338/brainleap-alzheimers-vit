@@ -1,8 +1,6 @@
-# BrainLeap Clinical Decision Support System (CDS) 🧠
+# An End-to-End Clinical Decision Support System for Leakage-Aware Dementia Staging using Patient-Isolated Neuroimaging Tensors and Distributed Web UI Frameworks.
 
-An End-to-End Clinical Decision Support System for Leakage-Aware Dementia Staging using Patient-Isolated Neuroimaging Tensors and Distributed Web UI Frameworks.
-
-## 🌟 Key Features
+## Key Features
 - **AI-Powered Diagnostics:** Utilizes a Vision Transformer (ViT) model for 4-stage Alzheimer's/Dementia classification (Non-Demented, Very Mild, Mild, Moderate).
 - **Grad-CAM Attention Heatmaps:** Explains model predictions by highlighting affected brain regions, enhancing clinical trust.
 - **Patient Isolation Hub:** Secure, real-time logging and retrieval of patient analysis history backed by MongoDB Atlas.
@@ -38,10 +36,6 @@ pip install -r requirements.txt
 ### 4. Database Configuration
 Create a `.env` file inside the `backend` folder and add your MongoDB connection string and JWT secret:
 ```env
-MONGODB_URI="mongodb+srv://<username>:<password>@cluster.mongodb.net/?retryWrites=true&w=majority"
-JWT_SECRET="your_super_secret_jwt_key"
-```
-*(Note: Never upload your `.env` file to GitHub!)*
 
 ### 5. Running the Application
 Start the FastAPI server:
@@ -51,7 +45,7 @@ uvicorn main:app --reload
 ```
 Once the server is running, the **Frontend and Backend both** will be served simultaneously by FastAPI!
 Open your browser and navigate to:
-👉 **http://127.0.0.1:8000**
+**http://127.0.0.1:8000**
 
 ---
 *Developed for advanced clinical neuroimaging analysis and research.*
